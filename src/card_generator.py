@@ -14,10 +14,6 @@ def generate_flashcards(text_content, num_cards=10):
     """
     Sends text to Gemini and returns a list of flashcards.
     """
-    
-    # --- FIX 2: CHANGED MODEL NAME TO BE SAFER ---
-    # We switched to 'gemini-pro' because it is the most stable standard model.
-    # If this works, you can try changing it back to 'gemini-1.5-flash-latest' later.
     try:
         model = genai.GenerativeModel('gemini-3-flash-preview')
     except:
