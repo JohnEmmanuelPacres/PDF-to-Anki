@@ -1,4 +1,4 @@
-import google.generativeai as genai
+from google import genai
 import os
 import json
 from dotenv import load_dotenv
@@ -6,10 +6,8 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Configure Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-# --- FIX 1: ADD num_cards=10 HERE ---
 def generate_flashcards(text_content, num_cards=10):
     """
     Sends text to Gemini and returns a list of flashcards.
