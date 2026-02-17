@@ -22,7 +22,8 @@ def generate_flashcards(text_content, num_cards=10):
     # The Prompt
     prompt = f"""
     You are an expert tutor. Create exactly {num_cards} Anki flashcards based on the text below.
-    Focus on the most important concepts, definitions, and relationships.
+    Focus on the most important concepts, definitions, and relationships. As much as possible focus on creating question-answer pairs that test understanding, 
+    not just recall. Use simple language and be concise. Also add true or false questions if applicable.
     
     Strictly follow this JSON format:
     [
