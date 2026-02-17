@@ -1,4 +1,5 @@
 from google import genai
+from google.genai import types
 import os
 import json
 from dotenv import load_dotenv
@@ -6,16 +7,16 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def generate_flashcards(text_content, num_cards=10):
     """
     Sends text to Gemini and returns a list of flashcards.
     """
     try:
-        model = genai.GenerativeModel('gemini-3-flash-preview')
+        model = 'gemini-3-flash-preview'
     except:
-        model = genai.GenerativeModel('gemini-3-pro-preview')
+        model = 'gemini-3-pro-preview'
 
     # The Prompt
     prompt = f"""
@@ -36,7 +37,15 @@ def generate_flashcards(text_content, num_cards=10):
     """
     
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model=model,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=0,
+                top_p=0.95,
+                top_k=20,
+            ),
+        )
         
         # Clean the response text
         clean_text = response.text.strip()
